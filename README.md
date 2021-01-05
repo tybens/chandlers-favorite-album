@@ -2,7 +2,7 @@
 
 Have an album that you hold most dearestly to your heart? Make chandler hold it too.
 
-This webapp is adapted from the great [thmsmlr](www.twitter.com/thmsmlr)'s [Bill Clinton Swag](billclintonswag.com). 
+This webapp is adapted from the great [thmsmlr](https://www.twitter.com/thmsmlr)'s [Bill Clinton Swag](https://billclintonswag.com). 
 
 ## Description 
 
