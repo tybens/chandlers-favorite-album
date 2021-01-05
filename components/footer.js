@@ -6,7 +6,7 @@ export default () => {
             <a className="mx-2" href="mailto:tyler.benson+cfa@gmail.com" target="_blank">
               Contact
             </a>
-            <a className="mx-2" href="https://twitter.com/tybens" target="_blank">
+            <a className="mx-2" href="https://twitter.com/tyloben" target="_blank">
               Twitter
             </a>
           </div>
