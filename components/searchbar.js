@@ -61,7 +61,7 @@ export default forwardRef(({ onSelect, ...rest }, ref) => {
     <>
       <form
         className={
-          'z-50 bg-white md:relative ' +
+          'z-40 bg-white md:relative ' +
           (open ? 'fixed top-0 left-0 w-screen sm:w-full sm:static' : 'relative')
         }
         onKeyDown={e => {

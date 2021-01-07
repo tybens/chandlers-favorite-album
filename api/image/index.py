@@ -12,7 +12,7 @@ import urllib.request
 import os
 import requests
 
-from flask import Flask, jsonify, request, redirect
+from flask import Flask, jsonify, request, redirect, make_response
 from PIL import Image
 from urllib.parse import urlparse
 from typing import List
@@ -29,6 +29,23 @@ COEFFS = [ 7.87970803e-01,  3.25694599e-01, -5.58891931e+02, -5.62940129e-02,
         9.85145226e-01, -7.82937132e+02,  3.63585476e-04,  3.74690231e-04] # yapf: disable
 
 
+# SHOPIFY Variant IDs
+# Brand: Bella + Canvas (12.95)
+# XS - 9526
+# S - 4011 
+# M - 4012
+# L - 4013
+# XL - 4014
+# Brand: Gildan (7.95)
+# S - 473
+# M - 504
+# L - 535
+# XL - 566
+# These Coords show more of the album, but the perspective is jank
+# COORDS =[(93, 204), (303, 216), (47, 338), (258, 386)]
+
+# COEFFS = [ 7.56277191e-01,  2.59617543e-01, -4.93183030e+02, -5.69656058e-02,
+#         9.96898101e-01, -7.92277645e+02,  3.83908250e-04,  2.56379340e-04]
 
 # PRECOMPUTED IN COEFFS BECAUSE NUMPY TOO FAT
 
@@ -95,9 +112,11 @@ def main(album_url: str) -> io.BytesIO:
 def catch_all(path):
     album_url = request.args.get('album_url')
     token = main(album_url=album_url)
-    url = urlparse(request.base_url)
-    output_url = f'{url.scheme}://{url.netloc}/swag/{token}'
-    return redirect(output_url, code=302)
+    resp = make_response(token)
+    return resp
+    # url = urlparse(request.base_url)
+    # output_url = f'{url.scheme}://{url.netloc}/swag/{token}'
+    # return redirect(output_url, code=302)
 
 
 if __name__ == '__main__':
