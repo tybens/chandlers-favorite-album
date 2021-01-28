@@ -3,7 +3,7 @@ export default () => {
       <footer className="mt-16">
         <div className="max-w-screen-lg mx-auto px-4 md:px-6 lg:px-8 py-8 text-center">
           <div className="flex items-center justify-center text-gray-800">
-            <a className="mx-2" href="mailto:tyler.benson+cfa@gmail.com" target="_blank">
+            <a className="mx-2" href="mailto:chandlersfavoritealbum@gmail.com" target="_blank">
               Contact
             </a>
             <a className="mx-2" href="https://twitter.com/tyloben" target="_blank">
@@ -22,7 +22,7 @@ export default () => {
             </span>
           </a>
           <p className="mt-8 text-gray-700 text-sm">
-            ® 2020 Chandlers Favorite Album
+            ® 2021 Chandlers Favorite Album
             <br />
             All rights reserved
           </p>
