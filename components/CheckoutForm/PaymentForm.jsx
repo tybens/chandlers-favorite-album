@@ -13,48 +13,7 @@ import useStyles from './styles';
 const stripePromise = loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
 
 const PaymentForm = ({ product, token, nextStep, backStep, shippingData }) => {
-  if (false) {
-    // this should fetch to make an order with a custom png
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Basic ${btoa(process.env.PRINTFUL_API_KEY)}`,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then(
-        ({ result }) => {
-          console.log(result);
-
-          if (false) {
-            // this should fetch to move the order to confirmed, because they have to have paid by now
-            fetch(`https://api.printful.com/orders/${result.id}/confirm`, {
-              method: 'POST',
-              headers: {
-                'Content-type': 'application/json',
-                Authorization: `Basic ${btoa(process.env.PRINTFUL_API_KEY)}`,
-              },
-            })
-              .then((res) => res.json())
-              .then(
-                (result) => {
-                  console.log(result);
-                  nextStep();
-                },
-                (error) => {
-                  console.log('[ERROR]', error);
-                }
-              );
-          }
-        },
-        (error) => {
-          console.log('[ERROR]', error);
-        }
-      );
-  }
-
+  
   return (
     <>
       <Divider />
@@ -181,7 +140,6 @@ const StripePayment = ({product, token, nextStep, backStep, shippingData}) => {
         .then((res) => res.json())
         .then(
           (ref) => {
-            console.log(ref);
             // go to the confirmation page
             nextStep();
           },

@@ -14,7 +14,6 @@ const Shop = ({ token, checkout }) => {
   const selectedProduct = PRODUCTS.find((x) => x.size === selectedSize);
 
   const handleBuyNow = () => {
-    console.log('selected size', selectedSize)
     checkout(selectedProduct)
   };
   
