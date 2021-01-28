@@ -1,21 +1,11 @@
 import React, { forwardRef, useState } from 'react';
 import Shop from './shop';
+import Checkout from './CheckoutForm/Checkout/Checkout'
+
 
 const Modal = ({ token, onClose }) => {
-  // allow closing of the modal
-  //   document.onkeydown = function (evt) {
-  //     evt = evt || window.event;
-  //     var isEscape = false;
-  //     if ('key' in evt) {
-  //       isEscape = evt.key === 'Escape' || evt.key === 'Esc';
-  //     } else {
-  //       isEscape = evt.keyCode === 27;
-  //     }
-  //     if (isEscape && showModal) {
-  //       handleClose();
-  //     }
-  //   };
-
+  const [checkout, setCheckout] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState('S')
   function handleClose() {
     onClose();
   }
@@ -41,7 +31,9 @@ const Modal = ({ token, onClose }) => {
               </svg>
             </div>
           </div>
-          <Shop token={token} />
+          {!checkout ? <Shop token={token} checkout={(product) => {
+            setSelectedProduct(product)
+            setCheckout(true)}} /> : <Checkout token={token} selectedProduct={selectedProduct} onClose={handleClose} /> }
           {/* {[...Array(20).keys()].map((x) => (
             <br></br>
           ))} */}

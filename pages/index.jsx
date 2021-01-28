@@ -24,7 +24,7 @@ const Page = () => {
   const [showModal, setShowModal] = useState(false);
   const [shopClicked, setShopClicked] = useState(false);
   const [token, setToken] = useState('');
-
+  
   const isComplete = !(album === DEFAULT_IMAGE);
 
   // useEffect is a react thing that only be triggered client side!
