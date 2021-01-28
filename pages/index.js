@@ -43,10 +43,6 @@ const Page = () => {
     // don't save another shirt if they close out of the shop and want to go back in
     if (!shopClicked) {
       setShopClicked(true);
-      axios.get(`/api/image?album_url=${album}`).then((response) => {
-        console.log(response);
-        setToken(response.data);
-      });
     }
     setShowModal(true);
   };
@@ -61,6 +57,11 @@ const Page = () => {
         left: 0,
         behavior: 'smooth',
       });
+      if (!shopClicked) {
+        axios.get(`/api/image?album_url=${album}`).then((response) => {
+          setToken(response.data);
+        });
+      }
     }, 50);
   }
 
@@ -115,6 +116,7 @@ const Page = () => {
             onClick={(idx) => {
               setSelectedIndex(idx);
             }}
+            token={token}
             style={{}}
             selectedIndex={selectedIndex}
           />

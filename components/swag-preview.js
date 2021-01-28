@@ -6,7 +6,7 @@ const COORDS = [93, 204, 303, 216, 31, 354, 250, 405];
 const [WIDTH, HEIGHT] = [384, 384];
 const ALBUM_SIZE = 512;
 
-const SwagPreview = ({ onClick, album = null, selectedIndex = null, generated = false }) => {
+const SwagPreview = ({ onClick, album = null, selectedIndex = null, generated = false, token }) => {
   const ref = useRef();
   const [count, setCount] = useState(0);
   const width = (ref.current && ref.current.width) || 0;
@@ -44,6 +44,17 @@ const SwagPreview = ({ onClick, album = null, selectedIndex = null, generated = 
     0,
     coeffs[8],
   ];
+
+  if (generated && token) {
+    return (
+      <div className="relative inline-block overflow-hidden">
+      <img
+      src={`https://chandlersfavorite.s3.us-east-2.amazonaws.com/${token}/swag.png`}
+      className="relative z-10 block select-none max-w-full"
+      />
+      </div>
+    )
+  }
 
   return (
     <div className="relative inline-block overflow-hidden">
