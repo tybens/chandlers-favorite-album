@@ -45,7 +45,13 @@ def create_printful_order(orderData):
               "error message: %s" % str(e))
         return False, e
 
-    urlConfirm = f'https://api.printful.com/orders/{response.id}/confirm'
+    # TODO: automate confirmation
+    confirm_order(response.id, headers)
+
+
+def confirm_order(orderId, headers):
+
+    urlConfirm = f'https://api.printful.com/orders/{orderId}/confirm'
 
     if False:
         try:
@@ -58,6 +64,7 @@ def create_printful_order(orderData):
             print("ERROR: When submitting order with requests, "
                   "error message: %s" % str(e))
             return False, e
+
 
 if '__main__' == __name__:
 
