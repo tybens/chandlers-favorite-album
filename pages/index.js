@@ -71,9 +71,13 @@ const Page = () => {
         <title>Chandlers Favorite Album</title>
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="@tyloben" />
-        <meta property="og:title" content="Chandlers Favorite Album" />
+        <meta property="og:title" content="chandlers fav album" />
         <meta property="og:description" content="Turns out Chandler also loves ur favorite album" />
         <meta property="og:image" content="/images/meme.jpeg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <div
         className="py-12 px-2 md:px-4 lg:px-6 max-w-screen-xl flex flex-col items-center mx-auto"
