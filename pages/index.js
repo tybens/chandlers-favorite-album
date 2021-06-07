@@ -24,7 +24,7 @@ const Page = () => {
   const [showModal, setShowModal] = useState(false);
   const [shopClicked, setShopClicked] = useState(false);
   const [token, setToken] = useState('');
-  
+
   const isComplete = !(album === DEFAULT_IMAGE);
 
   // useEffect is a react thing that only be triggered client side!
@@ -80,69 +80,71 @@ const Page = () => {
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <div
-        className="py-12 px-2 md:px-4 lg:px-6 max-w-screen-xl flex flex-col items-center mx-auto"
+        className="py-12 px-2 md:px-4 lg:px-6 max-w-screen-xl min-h-screen flex flex-col items-center mx-auto justify-between"
         style={{
           overflow: showModal ? 'hidden visible !important' : '',
         }}>
-        <Header />
-        {showModal && (
-          <ShopModal
-            style={{
-              transition: 'opacity 0.25s ease',
-              opacity: showModal ? '' : '0',
-            }}
-            showModal={showModal}
-            token={token}
-            onClose={() => {
-              setShowModal(false);
-            }}></ShopModal>
-        )}
-        <div className="grid gap-4 mt-8">
-          <SearchBar
-            ref={inputRef}
-            onSelect={(album) => {
-              const newAlbum = album;
-              // set the `album` variable to the url
-              setAlbum(newAlbum.url);
-              // allow user to "generate swag" again
-              setGenerated(false);
-              // allow user to generate a new swag image
-              setShopClicked(false);
-              // reset selected index to none
-              setSelectedIndex(-1);
-            }}
-            placeholder="Search for Album..."
-          />
+        <div className="flex flex-col items-center">
+          <Header />
+          {showModal && (
+            <ShopModal
+              style={{
+                transition: 'opacity 0.25s ease',
+                opacity: showModal ? '' : '0',
+              }}
+              showModal={showModal}
+              token={token}
+              onClose={() => {
+                setShowModal(false);
+              }}></ShopModal>
+          )}
+          <div className="grid gap-4 mt-8">
+            <SearchBar
+              ref={inputRef}
+              onSelect={(album) => {
+                const newAlbum = album;
+                // set the `album` variable to the url
+                setAlbum(newAlbum.url);
+                // allow user to "generate swag" again
+                setGenerated(false);
+                // allow user to generate a new swag image
+                setShopClicked(false);
+                // reset selected index to none
+                setSelectedIndex(-1);
+              }}
+              placeholder="Search for Album..."
+            />
 
-          <SwagPreview
-            album={album}
-            generated={generated}
-            onClick={(idx) => {
-              setSelectedIndex(idx);
-            }}
-            token={token}
-            style={{}}
-            selectedIndex={selectedIndex}
-          />
-          {isComplete && !generated && (
-            <button
-              ref={buttonRef}
-              className="text-white bg-blue-900 p-3 text-lg font-bold"
-              onClick={generateSwag}>
-              {loading ? <ThreeDots /> : 'Generate Swag'}
-            </button>
-          )}
-          {generated && (
-            <button
-              ref={buttonRef}
-              onClick={handleShop}
-              className="text-white bg-blue-900 p-3 text-lg font-bold">
-              {loading ? <ThreeDots /> : 'S H O P'}
-            </button>
-          )}
+            <SwagPreview
+              album={album}
+              generated={generated}
+              onClick={(idx) => {
+                setSelectedIndex(idx);
+              }}
+              token={token}
+              style={{}}
+              selectedIndex={selectedIndex}
+            />
+            {isComplete && !generated && (
+              <button
+                ref={buttonRef}
+                className="text-white bg-blue-900 p-3 text-lg font-bold"
+                onClick={generateSwag}>
+                {loading ? <ThreeDots /> : 'Generate Swag'}
+              </button>
+            )}
+            {generated && (
+              <button
+                ref={buttonRef}
+                onClick={handleShop}
+                className="text-white bg-blue-900 p-3 text-lg font-bold">
+                {loading ? <ThreeDots /> : 'S H O P'}
+              </button>
+            )}
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </Layout>
   );
 };
