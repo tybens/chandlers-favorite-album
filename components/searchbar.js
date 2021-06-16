@@ -119,7 +119,7 @@ export default forwardRef(({ onSelect, ...rest }, ref) => {
             className={
               ' ' +
               (open
-                ? ' block absolute w-screen h-screen sm:w-max sm:h-auto border border-gray-300 bg-white box-border'
+                ? ' block absolute w-full h-screen sm:w-max sm:h-auto border border-gray-300 bg-white box-border'
                 : ' hidden') +
               (results.length > 0 ? ' ' : ' block sm:hidden')
             }
