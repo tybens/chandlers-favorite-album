@@ -2,20 +2,23 @@ import requests
 import re
 
 from bs4 import BeautifulSoup
-from flask import Flask, jsonify, request, redirect, make_response
+from http.server import BaseHTTPRequestHandler
+from urllib.parse import urlparse
+import json
 
-app = Flask(__name__)
+class handler(BaseHTTPRequestHandler):
 
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    q = request.args.get('q')
-    resp = jsonify(search(q))
-    resp.headers['Cache-Control'] = 's-maxage=86400, stale-while-revalidate'
-    return resp
-
-
+    def do_GET(self):
+        parsed_path = urlparse(self.path)
+        query = parsed_path.query
+        resp = search(query)
+        self.send_response(200)
+        self.send_header(
+            'Cache-Control', 's-maxage=86400, stale-while-revalidate')
+        self.end_headers()
+        self.wfile.write(json.dumps(resp).encode("utf-8"))
+        return
+        
 def search(query):
     resp = requests.get(f'https://www.last.fm/search/albums?q={query}')
     resp.raise_for_status()
