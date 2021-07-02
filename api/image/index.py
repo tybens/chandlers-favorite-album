@@ -9,15 +9,15 @@ import random
 import string
 import boto3
 import urllib.request
+from http.server import BaseHTTPRequestHandler
 import os
 import requests
 
-from flask import Flask, jsonify, request, redirect, make_response
 from PIL import Image
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 from typing import List
+import json
 
-app = Flask(__name__)
 s3 = boto3.client(
     's3',
     aws_access_key_id=os.environ.get('ACCESS_KEY_ID'),
@@ -107,13 +107,17 @@ def main(album_url: str) -> io.BytesIO:
     return token
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    album_url = request.args.get('album_url')
-    token = main(album_url=album_url)
-    resp = make_response(token)
-    return resp
+class handler(BaseHTTPRequestHandler):
+
+    def do_GET(self):
+        parsed_path = urlparse(unquote(self.path))
+        print(parsed_path)
+        query = parsed_path.query
+        token = main(album_url=query)
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(json.dumps({"token": token}).encode("utf-8"))
+        return
     # url = urlparse(request.base_url)
     # output_url = f'{url.scheme}://{url.netloc}/swag/{token}'
     # return redirect(output_url, code=302)

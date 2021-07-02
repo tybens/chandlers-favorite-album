@@ -58,12 +58,14 @@ const Page = () => {
         behavior: 'smooth',
       });
       if (!shopClicked) {
-        axios.get(`/api/image?album_url=${album}`).then((response) => {
-          setToken(response.data);
+        axios.get(`/api/image/?${album}`).then((response) => {
+          setToken(response.token);
         });
       }
     }, 50);
   }
+  console.log(album)
+
 
   return (
     <Layout>
