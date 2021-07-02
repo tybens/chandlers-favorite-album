@@ -10,10 +10,11 @@ import {
 import { loadStripe } from '@stripe/stripe-js';
 import useStyles from './styles';
 
-const stripePromise = loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
+const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`);
 
 const PaymentForm = ({ product, token, nextStep, backStep, shippingData }) => {
-  
+  console.log(process.env)
+
   return (
     <>
       <Divider />

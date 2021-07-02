@@ -33,7 +33,7 @@ const Shop = ({ token, checkout }) => {
               <img
                 className="mx-auto"
                 style={{ maxHeight: token ? '40vh' : '10vh' }}
-                src={token ? `api/shirt?token=${token}` : '/images/loading.gif'}></img>
+                src={token ? `api/shirt/?${token}` : '/images/loading.gif'}></img>
             </div>
           </div>
           <div className="md:w-1/2">

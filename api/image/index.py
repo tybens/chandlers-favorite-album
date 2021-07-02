@@ -111,11 +111,11 @@ class handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         parsed_path = urlparse(unquote(self.path))
-        print(parsed_path)
         query = parsed_path.query
         token = main(album_url=query)
         self.send_response(200)
         self.end_headers()
+        print(token)
         self.wfile.write(json.dumps({"token": token}).encode("utf-8"))
         return
     # url = urlparse(request.base_url)

@@ -3,13 +3,13 @@ import re
 
 from bs4 import BeautifulSoup
 from http.server import BaseHTTPRequestHandler
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 import json
 
 class handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
-        parsed_path = urlparse(self.path)
+        parsed_path = urlparse(unquote(self.path))
         query = parsed_path.query
         resp = search(query)
         self.send_response(200)
@@ -18,7 +18,7 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps(resp).encode("utf-8"))
         return
-        
+
 def search(query):
     resp = requests.get(f'https://www.last.fm/search/albums?q={query}')
     resp.raise_for_status()
@@ -27,7 +27,7 @@ def search(query):
 
     return [
         {
-            'url': re.sub('(\d+s)', '100s',
+            'url': re.sub(r'(\d+s)', '100s',
                           x.find('img').attrs['src']),
             'album': x.find('h4').a.text,
             'artist': x.find('p').a.text,

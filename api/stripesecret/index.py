@@ -1,27 +1,27 @@
 import os
 
-from flask import Flask, jsonify, request, redirect, send_file, make_response
+from http.server import BaseHTTPRequestHandler
 import stripe
-
+import json
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 
-app = Flask(__name__)
 
-@app.route('/', defaults={'path': ''}, methods=['GET'])
-@app.route('/<path:path>', methods=['GET'])
-def get_client_secret(path):
-    try:
-        intent = stripe.PaymentIntent.create(
-            amount=calculate_order_amount(),
-            currency='usd'
-        )
-        return jsonify({
-            'clientSecret': intent['client_secret']
-        })
+class handler(BaseHTTPRequestHandler):
 
-    except Exception as e:
-        return jsonify(error=str(e)), 403
-
+    def do_GET(self):
+        try:
+            intent = stripe.PaymentIntent.create(
+                amount=calculate_order_amount(),
+                currency='usd'
+            )
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(json.dumps({"clientSecret": intent['client_secret']}).encode("utf-8"))
+            return 
+        except Exception as e:
+            self.send_response(400)
+            self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+            return
 
 def calculate_order_amount():
     """ Calculates order amount, trivial in my case"""

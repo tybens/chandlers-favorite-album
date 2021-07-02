@@ -46,7 +46,7 @@ const Checkout = ({ token, selectedProduct, error, onClose }) => {
             onClick={onClose()}
             className="mx-auto"
             style={{ maxHeight: token ? '50vh' : '10vh' }}
-            src={token ? `api/shirt?token=${token}` : '/images/loading.gif'}></img>
+            src={token ? `api/shirt/?${token}` : '/images/loading.gif'}></img>
         </div>
         <br />
       </>

@@ -1,10 +1,9 @@
 import io
 import urllib.request
-
-from flask import Flask, jsonify, request, redirect, send_file, make_response
+from urllib.parse import urlparse, unquote
+from http.server import BaseHTTPRequestHandler
 from PIL import Image
 
-app = Flask(__name__)
 
 
 def download_image(url):
@@ -29,12 +28,18 @@ def main(swag_id) -> io.BytesIO:
     return output
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    token = request.args.get('token')
-    img = main(token)
-    resp = make_response(send_file(img, attachment_filename='shirt.png', mimetype='image/png'))
-    resp.headers['Cache-Control'] = 's-maxage=31449600, stale-while-revalidate'
-    resp.headers['ETag'] = 'W/"foobar"'
-    return resp
+class handler(BaseHTTPRequestHandler):
+
+    def do_GET(self):
+        parsed_path = urlparse(unquote(self.path))
+        swag_id = parsed_path.query
+        img = main(swag_id)
+        self.send_response(200)
+        self.send_header(
+            'Cache-Control', 's-maxage=31449600, stale-while-revalidate')
+        self.send_header(
+            'ETag', 'W/foobar')
+        self.end_headers()
+        print(img)
+        self.wfile.write(img.read())
+        return

@@ -59,13 +59,11 @@ const Page = () => {
       });
       if (!shopClicked) {
         axios.get(`/api/image/?${album}`).then((response) => {
-          setToken(response.token);
+          setToken(response.data.token);
         });
       }
     }, 50);
   }
-  console.log(album)
-
 
   return (
     <Layout>
